@@ -1,0 +1,59 @@
+﻿@model MVC.Calculator.Models.CalculatorModel
+@{
+    ViewBag.Title = "Calculator";
+}
+
+<h2>Calculator</h2>
+
+<script type="text/javascript">
+    function isNumberValid(field) {
+        setTimeout(function () {
+            var regex = /-\d*\.?\d*/;
+                field.value = regex.exec(field.value);
+        }, 0);
+    }
+</script>
+<div>
+    @using (Html.BeginForm())
+    {
+        <table border="1">
+            <tr>
+                <td>@Html.LabelFor(m=>m.FirstNum)</td>
+                <td>@Html.TextBoxFor(m => m.FirstNum, new { onkeypress = "return isNumberValid(this)" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.SecondNum)</td>
+                <td>@Html.TextBoxFor(m => m.SecondNum, new { onkeypress = "return isNumberValid(this)" })</td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Result")</td>
+                @if(Model !=null)
+                {
+                    <td>
+                        @Html.LabelFor(m=>m.Addition)
+                        @Model.Addition
+                        <br />
+                        @Html.LabelFor(m => m.Subtraction)
+                        @Model.Subtraction
+                        <br />
+                        @Html.LabelFor(m => m.Multiplication)
+                        @Model.Multiplication
+                        <br />
+                        @Html.LabelFor(m => m.Division)
+                        @Model.Division
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Calculate" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+
